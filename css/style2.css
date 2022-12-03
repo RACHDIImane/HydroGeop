@@ -1,0 +1,190 @@
+
+/*GLOBAL*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+h1{
+    font-size: 2.6rem;
+}
+
+h2{
+    font-size: 4.8rem;
+    color: black;
+}
+
+h3{
+    font-size: 3rem;
+    font-weight: normal;
+    color: black;
+}
+
+#map {
+    width: 1100px;
+    height: 500px;
+    
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: rgb(131, 115, 115);
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: rgb(102, 102, 102);
+}
+.info h5 {
+    margin: 0 0 4.8px;
+    color: rgb(14, 13, 13);
+}
+.legend {
+    line-height: 20px;
+    color: rgb(49, 49, 49);
+}
+
+.legend i {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 40px;
+    opacity: 0.7;
+}
+li,
+button{
+    font-size: 2rem;
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+/*HEADER*/
+.main-head{
+    background: #32724f;
+    color: #ffffff;
+
+}
+nav{
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
+nav ul{
+    display: flex;
+    flex: 1 1 40rem;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+#logo{
+    flex: 1 1 40rem;
+    /*font-family: 'Pacifico', cursive;*/
+    font-weight: normal;
+}
+
+/*HERO*/
+.hero{
+    min-height: 90vh;
+    background: linear-gradient(rgb(0,0,0,0.5), transparent), url(covid2.jpg);
+    background-size: cover;
+    background-position: center;
+    color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+   /* justify-content: center;
+    align-items: center;
+    */
+    text-align: center;
+}
+/*
+.hero h3{
+    padding: 4rem;
+}
+*/
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background: #63666a;
+
+}
+
+.linkbox {
+    margin: 3px 0 20px 0;
+    display: block;
+    font-size: 0.9em;
+    font-weight: 300;
+    line-height: 1.3em;
+}
+.max-image-width {
+    width: 100%;
+}
+
+/* Use float property to make two-column layout */
+.first-column {
+    float: left;
+    width: 49%;
+    padding-right: 2%;
+}
+
+.column {
+    float: left;
+    width: 49%;
+}
+
+/* Clear floats after the columns */
+.row::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.leaflet-popup-content p {
+    margin: 1px 0 -8px;
+    font-size: 1.1em;
+}
+
+.leaflet-popup-content h3 {
+    font-family: 'Slabo 27px', serif;
+    font-size: 1.3em;
+    margin-bottom: 1px;
+}
+
+@media screen and (max-width : 885px){
+    html{
+        font-size: 45%;
+    }
+    nav{
+        text-align: center;
+    }
+    #logo{
+        padding: 2rem;
+    }
+    .first-column,
+			.second-column {
+				width: 100%;
+			}
+}
+    
+}
+    
+}

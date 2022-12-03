@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+
+	.c1{
+		font-family:serif;
+		font-size:medium;}
+	.c2{
+		font-family:serif;
+		font-size:small;}
+	.widget-title{
+		font-family: sans-serif;
+		font-size: large;}
+	.c3{
+		font-family: serif;
+		font-size: medium;}
+	.c4{
+		font-family:serif;
+		font-size:larger;}	
+	.text-right{
+		font-family: serif;
+		font-size:small; }
+	.tagline{
+		font-family: serif;
+		font-size:small;}
+	.navbar-brand{
+		transform:translateX(-50%);
+		top:5px;
+		position:absolute;
+	}	
+	.lead1{
+		color:#ffffff;
+		font-family: 'Raleway', sans-serif;
+		font-size:50px;
+		font-weight:800;
+		line-height:72px;
+		margin:0 0 24px; 
+		text-transform:uppercase;
+
+	}
+
+	
+        .info {
+		    padding: 6px 8px;
+            color: white;
+		    font: 14px/16px Arial, Helvetica, sans-serif;
+		    background:#bcbddc;
+		    background: #bcbddc;
+		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		    border-radius: 5px;
+		}
+		.info h4 {
+		    margin: 0 0 5px;
+		    color: #f2f0f7
+;
+		}
+        .legend {
+           line-height: 18px;
+           color: #f2f0f7
+;
+        }
+        .legend i {
+           width: 18px;
+           height: 18px;
+           float: left;
+           margin-right: 8px;
+           opacity: 1;
+        }	
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      
+    }
+    #optionsDiv{
+      opacity: 1;
+      color: black;
+    }
+</style>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
+ 
+<link rel="stylesheet" href="leaflet.css" />
+  <script src="leaflet.js"></script>
+  <meta name="description" content="ArcGIS JavaScript Tutorials: Filter a feature layer">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Requêtes</title>
+<link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.22/"></script>
+ 
+
+</head>
+
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/sgit.jfif" style="width: 80px; height: 80px"; ></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="index.html">Accueil</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Cartes<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="carte.html">Carte Choroplète</a></li>
+							<li><a class="active" href="requete.html">Carte avec requêtes</a></li>  
+						</ul>	 
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Histogrammes<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="selon-region.html">Selon la région</a></li>
+							<li><a href="selon-age.html">Selon l'âge</a></li>
+							<li><a href="selon-sexe.html">Selon le sexe</a></li>
+							<li><a href="selon-milieu.html">Selon le milieu</a></li>
+						</ul>
+					</li>
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="index.html">Accueil</a></li>
+			<li class="active">Carte avec requêtes</li>
+			
+		</ol>
+	</div>
+	<div class="row" > <br>   </div>
+	
+    <script>
+
+  require([
+      "esri/config",
+      "esri/Map",
+      "esri/views/MapView",
+
+      "esri/layers/FeatureLayer"
+
+    ], function(esriConfig,Map,MapView,FeatureLayer) {
+
+      esriConfig.apiKey = "AAPKe76a917a13224abbab8ac2b2a0440627zs9fAwI93UxpWOA7RHB6f8w02ZGWl0oNlYzQaR1z3UQrtopArBvTdYcpaLSANdC-";
+
+      const map = new Map({
+        basemap: "arcgis-topographic" // Basemap layer service
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-6.12356,26.02700], // Longitude, latitude
+        zoom: 5
+      });
+
+      // Create a UI with the filter expressions
+      const sqlExpressions = ["Choisissez une requête", "TC2021 > 12","TC2021 < 10" ,"Shape_Leng  > 11" , "Shape_Area > 5"];
+
+      // UI
+      const selectFilter = document.createElement("select");
+      selectFilter.setAttribute("class", "esri-widget esri-select");
+      selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
+
+      sqlExpressions.forEach(function(sql){
+        let option = document.createElement("option");
+        option.value = sql;
+        option.innerHTML = sql;
+        selectFilter.appendChild(option);
+      });
+
+      view.ui.add(selectFilter, "top-right");
+      view.ui.add("optionsDiv", "top-left");
+
+      // Add a feature layer to map with all features visible on client (no filter)
+      const featureLayer = new FeatureLayer({
+        url: "https://services6.arcgis.com/WqAuNeB96MgllIjx/arcgis/rest/services/region2021/FeatureServer/0",
+        outFields: ["*"],
+        popupTemplate: {
+          //title: "{UseType}",
+         content: "<b>Nom de la région:</b> {NAME} <br> <b>Taux de chômage:</b> {TC2021} % <br> <b> Surface de la région:</b> {Shape_Area} Km²",
+        },
+        definitionExpression: "1=0"
+      });
+      map.add(featureLayer);
+
+// Setup the Popup
+
+      // Server-side filter
+      function setFeatureLayerFilter(expression) {
+        featureLayer.definitionExpression = expression;
+      }
+
+      // Event listener
+      selectFilter.addEventListener('change', function (event) {
+        setFeatureLayerFilter(event.target.value);
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+  <body>
+  	<div class="container">
+    <div id="viewDiv" id='map' ></div>
+    <div id="optionsDiv" class="esri-widget">
+      <p>Cliquez sur la région pour plus d'informations.</p>
+     </div> 
+  
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script>
+</body>
+</html>
